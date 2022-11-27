@@ -71,18 +71,14 @@ def get_interacting_residues(path):
                         index_chain1.append(residue1.get_id()[1])
                     if residue2.get_id()[1] not in index_chain2:
                         index_chain2.append(residue2.get_id()[1])
-                    #payload.pay_01=residue1.get_resname()
-                    #payload.pay_02=residue1.get_segid()
-                    #payload.pay_03=residue2.get_resname()
-                    #payload.pay_04=residue2.get_segid()
-                    #payload.pay_05=distance
-
+                
+                    min_distance=calc_min_dist(residue1,residue2)
                     payload = {
                         "pay_01":residue1.get_resname(),
                         "pay_02":residue1.get_id()[1],
                         "pay_03":residue2.get_resname(),
                         "pay_04":residue2.get_id()[1],
-                        "pay_05":str(distance)
+                        "pay_05":str(min_distance)
 
                     }
 
@@ -96,3 +92,11 @@ def get_interacting_residues(path):
 
 
     return residues    
+
+
+def calc_min_dist(residue1, residue2):
+    distances = []
+    for atom1 in residue1:
+        for atom2 in residue2:
+            distances.append(atom1-atom2)
+    return min(distances)
