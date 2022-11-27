@@ -2,7 +2,7 @@ import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from resources import file_upload 
+from resources import file_upload, file_download
 
 app = FastAPI() 
 
@@ -18,6 +18,7 @@ app.add_middleware(CORSMiddleware,
     allow_headers=['*'])
 
 app.include_router(file_upload.router)
+app.include_router(file_download.router)
 
 
 if __name__ == "__main__":

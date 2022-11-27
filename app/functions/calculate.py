@@ -1,8 +1,10 @@
+import csv
 from functions import pdock
 import numpy as np
 import Bio.PDB
 from Bio.PDB import PDBParser
 from schemes.payload import *
+import uuid
 
 def calc_pdockq(path_file):
  
@@ -100,3 +102,16 @@ def calc_min_dist(residue1, residue2):
         for atom2 in residue2:
             distances.append(atom1-atom2)
     return min(distances)
+
+def get_csv_results(payload):
+    ##unique_id = uuid.uuid4()
+    ##unique_id_str = str(unique_id)
+    unique_id_str="test"
+
+    csv_heaver=['Residue1', 'Position1', 'Residue2', 'Position2','Distance']
+    csv_data=[]
+    print(csv_heaver)
+    with open(f'{unique_id_str}_residue_distances.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(csv_heaver)
+        writer.writerows(csv_data)
