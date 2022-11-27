@@ -28,12 +28,16 @@ def upload(file: UploadFile = File(...)):
     #results=calculate.calc_pdockq(file_location)
 
     #pdockq_results={"results":{"pay_01":results.pay_01,"pay_02":results.pay_02,"pay_03":results.pay_03}}
+    results=calculate.calc_pdockq(file_location)
+
+    if results.pay_01=="false":
+        return results
 
     table=calculate.get_interacting_residues(file_location)
     #full_response=[]
     #full_response.append(pdockq_results)
     #full_response.append(table)
-    results=calculate.calc_pdockq(file_location)
+    
     table.append(results)
     os.remove(file_location)
     print(table)

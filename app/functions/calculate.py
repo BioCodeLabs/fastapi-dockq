@@ -8,9 +8,11 @@ def calc_pdockq(path_file):
  
     chain_coords, chain_plddt = pdock.read_pdb(path_file)              
     t=8 
-    if len(chain_coords.keys())<2:
+    if len(chain_coords.keys())<2 or len(chain_coords.keys())>2:
         print('Only one chain in pdbfile', chain_coords)
-        return
+        payload=payloadScheme(pay_01="false",
+        pay_02="ppv",pay_03="",pay_04="",pay_05="")
+        return payload
     pdockq, ppv = pdock.calc_pdockq(chain_coords, chain_plddt, t)
 
     print('pDockQ =',np.round(pdockq,3),'for',path_file)
