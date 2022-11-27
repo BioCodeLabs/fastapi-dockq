@@ -31,6 +31,7 @@ def upload(file: UploadFile = File(...)):
     results=calculate.calc_pdockq(file_location)
 
     if results.pay_01=="false":
+        os.remove(file_location)
         return results
 
     table=calculate.get_interacting_residues(file_location)
