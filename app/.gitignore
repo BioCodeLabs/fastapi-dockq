@@ -5,6 +5,7 @@ __pycache__/
 app/functions/__pycache__
 *.py[cod]
 *$py.class
+csv/
 
 # C extensions
 *.so

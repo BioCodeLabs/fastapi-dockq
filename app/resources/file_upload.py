@@ -22,7 +22,7 @@ def upload(file: UploadFile = File(...)):
         return {"message": "There was an error uploading the file"}
     finally:
         file.file.close()
-    results=payloadScheme(pay_01="",pay_02="",pay_03="",pay_04="",pay_05="")
+    results=payloadScheme(pay_01="",pay_02="",pay_03="",pay_04="",pay_05="",pay_06="",pay_07="",pay_08="",pay_09="",pay_10="")
 
 
     #results=calculate.calc_pdockq(file_location)
