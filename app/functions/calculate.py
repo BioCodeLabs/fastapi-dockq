@@ -20,26 +20,19 @@ def calc_pdockq(path_file):
     print('pDockQ =',np.round(pdockq,3),'for',path_file)
     print('This corresponds to a PPV of at least', ppv)
     filename=path_file.split("/")[1]
-    probable_interaction= "yes" if pdockq>=0.23 else "no"
-
-    payload=payloadScheme(pay_01=np.round(pdockq,3),
+    probable_interaction= "Yes" if pdockq>=0.23 else "No"
+    payload=payloadScheme(pay_01=str(np.round(pdockq,3)),
     pay_02=ppv,pay_03=probable_interaction,pay_04="",pay_05="",pay_06="",pay_07="",pay_08="",pay_09="",pay_10="")
-
     get_interacting_residues(path_file)
     return payload
-    return f"pDockQ ={np.round(pdockq,3)} for {filename} \nThis corresponds to a PPV of at least, {ppv}.\t Interaction? {probable_interaction}"
 
 
 def get_interacting_residues(path):
     
     residues=[]
     payload=payloadScheme(pay_01="",pay_02="",pay_03="",pay_04="",pay_05="",pay_06="",pay_07="",pay_08="",pay_09="",pay_10="")
-    # create parser
     parser = PDBParser()
-
-    # read structure from file
     structure = parser.get_structure('id',path)
-    print("ge")
     chains = structure[0]
 
     if (len(chains)>2):
@@ -49,15 +42,10 @@ def get_interacting_residues(path):
         print(chain.get_id())
         chains_model.append(chain)
 
-    print(len(chains))
-    #chain = chains['A']
-    #chain2 =  chains['B']
-
     chain = chains_model[0]
     chain2 =  chains_model[1]
     index_chain1=[]
     index_chain2=[]
-
 
     for residue1 in chain:
         for residue2 in chain2:
@@ -92,13 +80,7 @@ def get_interacting_residues(path):
 
                     residues.append(payload)
                     print(residue1, residue2, distance)
-                    
-
-
-            # stop after first residue
-            #break
-
-
+                
     return residues    
 
 
@@ -114,7 +96,6 @@ def get_csv_results(payload):
     unique_id = uuid.uuid4()
     unique_id_str = str(unique_id)
     reduced_id=unique_id_str[1:8]
-
     csv_heaver=['Residue1', 'Position1', 'Confidence1', 'Residue2','Position2','Confidence2','Distance']
     csv_data=[]
     print(csv_heaver)
@@ -128,7 +109,6 @@ def get_csv_results(payload):
         writer.writerows(csv_data)
 
     return path
-
 
 def get_residue_bfactor(residue1):
     bfactors=[]
